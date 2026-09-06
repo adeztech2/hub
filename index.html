@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADEZ MAX HUB — Web, Bots, Hosting & More</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #000000;
+    --surface: #080E1A;
+    --surface-2: #0D1B33;
+    --line: #1F3A5C;
+    --blue: #1E6BFF;
+    --blue-2: #3FA9FF;
+    --text: #E9EDF5;
+    --text-muted: #8592A6;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(1100px 620px at 50% -10%, rgba(30,107,255,0.16), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3, .display{
+    font-family:'Space Grotesk', sans-serif;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  a{ color:inherit; }
+
+  img,svg{ display:block; max-width:100%; }
+
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ---------- Nav ---------- */
+
+  header.site{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(14,22,19,0.88);
+    backdrop-filter: blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 24px;
+    max-width:1080px;
+    margin:0 auto;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:1.05rem;
+  }
+
+  .brand .node{
+    width:10px;height:10px;border-radius:50%;
+    background:var(--blue);
+    box-shadow:0 0 0 4px rgba(245,185,66,0.18);
+  }
+
+  nav.links{
+    display:flex;
+    gap:28px;
+    font-size:0.92rem;
+    color:var(--text-muted);
+  }
+
+  nav.links a{ text-decoration:none; transition:color .15s ease; }
+  nav.links a:hover{ color:var(--text); }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:11px 20px;
+    border-radius:8px;
+    font-weight:600;
+    font-size:0.92rem;
+    text-decoration:none;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+
+  .btn-primary{
+    background:var(--blue);
+    color:#04101F;
+  }
+  .btn-primary:hover{ transform:translateY(-1px); }
+
+  .btn-ghost{
+    border-color:var(--line);
+    color:var(--text);
+  }
+  .btn-ghost:hover{ border-color:var(--blue-2); }
+
+  @media (max-width:760px){
+    nav.links{ display:none; }
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero{
+    padding:88px 24px 64px;
+    max-width:1080px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap:48px;
+    align-items:center;
+  }
+
+  .eyebrow-line{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--blue-2);
+    font-size:0.88rem;
+    margin-bottom:18px;
+  }
+  .eyebrow-line .dash{
+    width:28px; height:1px; background:var(--blue-2);
+  }
+
+  .hero h1{
+    font-size:clamp(2.3rem, 5vw, 3.4rem);
+    line-height:1.08;
+    font-weight:600;
+  }
+
+  .hero p.lede{
+    margin-top:22px;
+    max-width:46ch;
+    color:var(--text-muted);
+    font-size:1.08rem;
+  }
+
+  .hero .actions{
+    margin-top:34px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+
+  @media (max-width:860px){
+    .hero{ grid-template-columns:1fr; padding-top:56px; }
+  }
+
+  /* ---------- Hub diagram ---------- */
+
+  .hub-figure{ width:100%; }
+
+  .hub-figure text{
+    font-family:'IBM Plex Sans', sans-serif;
+  }
+
+  /* ---------- Section shell ---------- */
+
+  section{
+    padding:76px 24px;
+    border-top:1px solid var(--line);
+  }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:24px;
+    margin-bottom:44px;
+    flex-wrap:wrap;
+  }
+
+  .section-head h2{
+    font-size:clamp(1.7rem, 3vw, 2.2rem);
+    font-weight:600;
+  }
+
+  .section-head p{
+    color:var(--text-muted);
+    max-width:36ch;
+    margin:0;
+  }
+
+  /* ---------- Services (spoke list) ---------- */
+
+  .service-row{
+    display:grid;
+    grid-template-columns: 210px 1fr;
+    gap:36px;
+    padding:30px 0;
+    border-top:1px solid var(--line);
+    align-items:start;
+  }
+  .service-row:first-of-type{ border-top:none; }
+
+  .service-row .tag{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--blue);
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:1.05rem;
+  }
+  .service-row .tag .stem{
+    width:16px; height:1px; background:var(--blue);
+    flex-shrink:0;
+  }
+
+  .service-row .body h3{
+    font-size:1.2rem;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+
+  .service-row .body p{
+    color:var(--text-muted);
+    max-width:60ch;
+    margin:0;
+  }
+
+  @media (max-width:640px){
+    .service-row{ grid-template-columns:1fr; gap:10px; }
+  }
+
+  /* ---------- How it works ---------- */
+
+  .steps{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:0;
+    position:relative;
+  }
+
+  .steps::before{
+    content:"";
+    position:absolute;
+    top:11px; left:0; right:0;
+    height:1px;
+    background:var(--line);
+  }
+
+  @media (max-width:760px){
+    .steps{ grid-template-columns:1fr; }
+    .steps::before{ display:none; }
+  }
+
+  .step{
+    padding-right:28px;
+    position:relative;
+  }
+
+  @media (max-width:760px){
+    .step{ padding:0 0 28px 26px; border-left:1px solid var(--line); }
+    .step:last-child{ padding-bottom:0; }
+  }
+
+  .step .dot{
+    width:12px; height:12px; border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--blue-2);
+    margin-bottom:16px;
+    position:relative;
+    z-index:1;
+  }
+
+  @media (max-width:760px){
+    .step .dot{ position:absolute; left:-7px; top:0; }
+  }
+
+  .step h3{ font-size:1.05rem; font-weight:600; margin-bottom:8px; }
+  .step p{ color:var(--text-muted); margin:0; max-width:32ch; }
+
+  /* ---------- CTA band ---------- */
+
+  .cta-band{
+    border-top:1px solid var(--line);
+    padding:80px 24px;
+    text-align:center;
+  }
+
+  .cta-band h2{
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    max-width:18ch;
+    margin:0 auto 18px;
+    font-weight:600;
+  }
+
+  .cta-band p{
+    color:var(--text-muted);
+    max-width:44ch;
+    margin:0 auto 32px;
+  }
+
+  .cta-band .actions{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:36px 24px 40px;
+  }
+
+  .footer-inner{
+    max-width:1080px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    color:var(--text-muted);
+    font-size:0.88rem;
+  }
+
+  .footer-inner .credit{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+
+  .footer-inner strong{ color:var(--text); font-weight:600; }
+
+  .wa-float{
+    position:fixed;
+    bottom:22px;
+    right:22px;
+    z-index:30;
+    background:var(--blue);
+    color:#04101F;
+    width:52px; height:52px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    box-shadow:0 6px 18px rgba(0,0,0,0.35);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <div class="brand"><span class="node"></span>ADEZ MAX HUB</div>
+    <nav class="links">
+      <a href="#services">Services</a>
+      <a href="#how">How it works</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-primary" href="https://wa.me/254111783552" target="_blank" rel="noopener">Chat on WhatsApp</a>
+  </div>
+</header>
+
+<section class="hero" style="border-top:none;">
+  <div>
+    <div class="eyebrow-line"><span class="dash"></span>Nairobi-based digital services</div>
+    <h1>One hub. Every digital service your business needs.</h1>
+    <p class="lede">ADEZ MAX HUB builds your website, deploys your bot, grows your following, keeps your site online, and keeps your connection private — all from one place, one contact.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://wa.me/254111783552" target="_blank" rel="noopener">Message us on WhatsApp</a>
+      <a class="btn btn-ghost" href="#services">See what we do</a>
+    </div>
+  </div>
+
+  <svg class="hub-figure" viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of ADEZ MAX HUB connected to five services">
+    <line x1="210" y1="190" x2="210" y2="55"  stroke="#1F3A5C" stroke-width="1.5"/>
+    <line x1="210" y1="190" x2="360" y2="120" stroke="#1F3A5C" stroke-width="1.5"/>
+    <line x1="210" y1="190" x2="360" y2="270" stroke="#1F3A5C" stroke-width="1.5"/>
+    <line x1="210" y1="190" x2="210" y2="330" stroke="#1F3A5C" stroke-width="1.5"/>
+    <line x1="210" y1="190" x2="60"  y2="270" stroke="#1F3A5C" stroke-width="1.5"/>
+    <line x1="210" y1="190" x2="60"  y2="120" stroke="#1F3A5C" stroke-width="1.5"/>
+
+    <circle cx="210" cy="190" r="58" fill="#1E6BFF" opacity="0.14"/>
+    <circle cx="210" cy="190" r="46" fill="#080E1A" stroke="#1E6BFF" stroke-width="1.5"/>
+    <text x="210" y="185" text-anchor="middle" fill="#E9EDF5" font-size="13" font-weight="600">ADEZ MAX</text>
+    <text x="210" y="202" text-anchor="middle" fill="#E9EDF5" font-size="13" font-weight="600">HUB</text>
+
+    <g>
+      <circle cx="210" cy="42" r="30" fill="#080E1A" stroke="#3FA9FF" stroke-width="1.5"/>
+      <text x="210" y="38" text-anchor="middle" fill="#E9EDF5" font-size="10.5">Web</text>
+      <text x="210" y="50" text-anchor="middle" fill="#E9EDF5" font-size="10.5">Dev</text>
+    </g>
+
+    <g>
+      <circle cx="373" cy="112" r="30" fill="#080E1A" stroke="#3FA9FF" stroke-width="1.5"/>
+      <text x="373" y="108" text-anchor="middle" fill="#E9EDF5" font-size="10.5">Bots</text>
+    </g>
+
+    <g>
+      <circle cx="373" cy="278" r="30" fill="#080E1A" stroke="#3FA9FF" stroke-width="1.5"/>
+      <text x="373" y="270" text-anchor="middle" fill="#E9EDF5" font-size="9.5">Social</text>
+      <text x="373" y="283" text-anchor="middle" fill="#E9EDF5" font-size="9.5">Boost</text>
+    </g>
+
+    <g>
+      <circle cx="210" cy="348" r="30" fill="#080E1A" stroke="#3FA9FF" stroke-width="1.5"/>
+      <text x="210" y="352" text-anchor="middle" fill="#E9EDF5" font-size="10.5">Hosting</text>
+    </g>
+
+    <g>
+      <circle cx="47" cy="278" r="30" fill="#080E1A" stroke="#3FA9FF" stroke-width="1.5"/>
+      <text x="47" y="282" text-anchor="middle" fill="#E9EDF5" font-size="10.5">VPN</text>
+    </g>
+
+    <g>
+      <circle cx="47" cy="112" r="30" fill="#080E1A" stroke="#3FA9FF" stroke-width="1.5"/>
+      <text x="47" y="116" text-anchor="middle" fill="#E9EDF5" font-size="10.5">Etc.</text>
+    </g>
+  </svg>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What we do</h2>
+      <p>Five core services, and a standing offer to figure out the rest.</p>
+    </div>
+
+    <div class="service-row">
+      <div class="tag"><span class="stem"></span>Web development</div>
+      <div class="body">
+        <h3>A website that actually works for you</h3>
+        <p>We design and build sites that load fast, look right on a phone, and make it easy for a visitor to become a customer. From a single landing page to a full business site.</p>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="tag"><span class="stem"></span>Bot deployment &amp; design</div>
+      <div class="body">
+        <h3>Bots that handle real conversations</h3>
+        <p>We design and deploy bots for WhatsApp, Telegram, and Discord — for orders, support, bookings, or announcements — and set them up so they run without you watching them.</p>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="tag"><span class="stem"></span>Social media boost</div>
+      <div class="body">
+        <h3>Grow the numbers that matter</h3>
+        <p>Followers, views, and engagement across your platforms, built up in a way that supports your page rather than putting it at risk.</p>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="tag"><span class="stem"></span>Hosting</div>
+      <div class="body">
+        <h3>Your site, staying online</h3>
+        <p>We host your website or app on infrastructure we monitor, so it stays reachable when a customer goes looking for you.</p>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="tag"><span class="stem"></span>VPN service</div>
+      <div class="body">
+        <h3>A private, faster connection</h3>
+        <p>Browse without your connection being tracked or throttled, with access set up in minutes on your phone or laptop.</p>
+      </div>
+    </div>
+
+    <div class="service-row">
+      <div class="tag"><span class="stem"></span>Etc.</div>
+      <div class="body">
+        <h3>Something else in mind?</h3>
+        <p>If it's digital and it's not on this list, ask us on WhatsApp — there's a good chance we can still help.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>How it works</h2>
+      <p>One conversation is usually all it takes to get started.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="dot"></div>
+        <h3>Message us</h3>
+        <p>Tell us what you need on WhatsApp — no forms, no accounts.</p>
+      </div>
+      <div class="step">
+        <div class="dot"></div>
+        <h3>We scope it</h3>
+        <p>We confirm what you're getting, the cost, and the timeline before starting.</p>
+      </div>
+      <div class="step">
+        <div class="dot"></div>
+        <h3>We deliver</h3>
+        <p>You get the finished site, bot, or setup, plus support after handover.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="contact" style="border-top:1px solid var(--line);">
+  <h2>Ready to get your service running?</h2>
+  <p>Send a message and tell us what you're building — Arnold and the team will reply directly.</p>
+  <div class="actions">
+    <a class="btn btn-primary" href="https://wa.me/254111783552" target="_blank" rel="noopener">+254 111 783 552 — Chat now</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="credit">
+      <span>Build by <strong>Arnold Adez</strong></span>
+      <span>Powered by ♥️ <strong>ADEZ TECH</strong></span>
+    </div>
+    <div class="credit" style="text-align:right;">
+      <span>WhatsApp</span>
+      <span><strong>+254 111 783 552</strong></span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/254111783552" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+    <path d="M17.6 6.32A8.9 8.9 0 0 0 12.05 4a8.86 8.86 0 0 0-7.65 13.29L3 21l3.82-1.36a8.83 8.83 0 0 0 5.23 1.7h.01a8.86 8.86 0 0 0 8.85-8.85 8.9 8.9 0 0 0-2.31-6.17Z" stroke="#04101F" stroke-width="1.6"/>
+    <path d="M9 9.4c.15-.45.55-.6.9-.6h.5c.25 0 .45.2.5.45l.35 1.5c.05.2 0 .4-.15.55l-.5.55c-.1.1-.1.25-.05.35.35.7 1.4 1.75 2.1 2.1.1.05.25.05.35-.05l.55-.5c.15-.15.35-.2.55-.15l1.5.35c.25.05.45.25.45.5v.5c0 .35-.15.75-.6.9-1.5.5-3.75-1.1-4.9-2.25S8.5 10.9 9 9.4Z" fill="#04101F"/>
+  </svg>
+</a>
+
+</body>
+</html>
